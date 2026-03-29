@@ -15,7 +15,7 @@ CHANNEL_URL = os.getenv('CHANNEL_URL')
 ADMIN_IDS = [int(id) for id in os.getenv('ADMIN_IDS', '').split(',') if id]
 
 if not BOT_TOKEN:
-    print("? ОШИБКА: Токен не найден! Проверьте файл .env")
+    print("❌ Ошибка: Не найден файл .env! Создайте файл .env")
     exit(1)
 
 bot = telebot.TeleBot(BOT_TOKEN)
