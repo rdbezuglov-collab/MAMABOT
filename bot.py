@@ -7,7 +7,7 @@ import time
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
 
-# Загружаем токен
+# Р—Р°РіСЂСѓР¶Р°РµРј С‚РѕРєРµРЅ
 load_dotenv()
 BOT_TOKEN = os.getenv('BOT_TOKEN')
 CHANNEL_ID = os.getenv('CHANNEL_ID')
@@ -15,46 +15,46 @@ CHANNEL_URL = os.getenv('CHANNEL_URL')
 ADMIN_IDS = [int(id) for id in os.getenv('ADMIN_IDS', '').split(',') if id]
 
 if not BOT_TOKEN:
-    print("? ОШИБКА: Токен не найден! Проверьте файл .env")
+    print("? РћРЁРР‘РљРђ: РўРѕРєРµРЅ РЅРµ РЅР°Р№РґРµРЅ! РџСЂРѕРІРµСЂСЊС‚Рµ С„Р°Р№Р» .env")
     exit(1)
 
 bot = telebot.TeleBot(BOT_TOKEN)
 
-# ========== ДАННЫЕ ДЛЯ УСЛУГ ==========
+# ========== Р”РђРќРќР«Р• Р”Р›РЇ РЈРЎР›РЈР“ ==========
 SERVICES = {
     "french": {
-        "name": "Френч",
+        "name": "Р¤СЂРµРЅС‡",
         "price": "1000?",
-        "desc": "Классический французский маникюр. Белый кончик и натуральная основа.",
+        "desc": "РљР»Р°СЃСЃРёС‡РµСЃРєРёР№ С„СЂР°РЅС†СѓР·СЃРєРёР№ РјР°РЅРёРєСЋСЂ. Р‘РµР»С‹Р№ РєРѕРЅС‡РёРє Рё РЅР°С‚СѓСЂР°Р»СЊРЅР°СЏ РѕСЃРЅРѕРІР°.",
         "photo": "https://radare.arzfun.com/api/tg/photo?id=AgACAgIAAxkBAAEMA3Fpty6zQzgjsaNDbprt7MiDttohHwACiRprG0NWuEnG0Xd1NvXu7gEAAwIAA3kAAzoE"
     },
     "square": {
-        "name": "Квадрат",
+        "name": "РљРІР°РґСЂР°С‚",
         "price": "500?",
-        "desc": "Маникюр с квадратной формой ногтей. Строго и стильно.",
+        "desc": "РњР°РЅРёРєСЋСЂ СЃ РєРІР°РґСЂР°С‚РЅРѕР№ С„РѕСЂРјРѕР№ РЅРѕРіС‚РµР№. РЎС‚СЂРѕРіРѕ Рё СЃС‚РёР»СЊРЅРѕ.",
         "photo": "https://radare.arzfun.com/api/tg/photo?id=AgACAgIAAxkBAAEMA3Rpty9JPYWnRYZ0-nruSkdqB9wz4wACtRtrG6vCoEmCLKvxmIj9PgEAAwIAA3kAAzoE"
     },
     "design": {
-        "name": "Дизайн",
-        "price": "от 200?",
-        "desc": "Любой дизайн на ваш вкус: стразы, рисунки, наклейки.",
+        "name": "Р”РёР·Р°Р№РЅ",
+        "price": "РѕС‚ 200?",
+        "desc": "Р›СЋР±РѕР№ РґРёР·Р°Р№РЅ РЅР° РІР°С€ РІРєСѓСЃ: СЃС‚СЂР°Р·С‹, СЂРёСЃСѓРЅРєРё, РЅР°РєР»РµР№РєРё.",
         "photo": "https://l.arzfun.com/eauuy"
     },
     "strength": {
-        "name": "Укрепление",
+        "name": "РЈРєСЂРµРїР»РµРЅРёРµ",
         "price": "300?",
-        "desc": "Укрепление ногтей акригелем или полигелем.",
+        "desc": "РЈРєСЂРµРїР»РµРЅРёРµ РЅРѕРіС‚РµР№ Р°РєСЂРёРіРµР»РµРј РёР»Рё РїРѕР»РёРіРµР»РµРј.",
         "photo": "https://radare.arzfun.com/api/tg/photo?id=AgACAgIAAxkBAAEMA3ppty-SVm-EqKlETbctde6rbZLPlgACghhrG0NWuEnKWYOygNAWFQEAAwIAA3kAAzoE"
     },
     "remove": {
-        "name": "Снятие",
+        "name": "РЎРЅСЏС‚РёРµ",
         "price": "200?",
-        "desc": "Снятие старого покрытия.",
+        "desc": "РЎРЅСЏС‚РёРµ СЃС‚Р°СЂРѕРіРѕ РїРѕРєСЂС‹С‚РёСЏ.",
         "photo": "https://radare.arzfun.com/api/tg/photo?id=AgACAgIAAxkBAAEMA31pty-hwhi09vSqcI6U_GCePALFlAACuRtrG6vCoEnstCdu81MZEAEAAwIAA3kAAzoE"
     }
 }
 
-# ========== БАЗА ДАННЫХ ==========
+# ========== Р‘РђР—Рђ Р”РђРќРќР«РҐ ==========
 def init_db():
     conn = sqlite3.connect('manicure.db')
     cursor = conn.cursor()
@@ -103,7 +103,7 @@ def init_db():
     
     conn.commit()
     conn.close()
-    print("? База данных инициализирована")
+    print("? Р‘Р°Р·Р° РґР°РЅРЅС‹С… РёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅР°")
 
 def create_slots():
     conn = sqlite3.connect('manicure.db')
@@ -113,7 +113,7 @@ def create_slots():
     count = cursor.fetchone()[0]
     
     if count == 0:
-        print("?? Создаю слоты на 365 дней...")
+        print("?? РЎРѕР·РґР°СЋ СЃР»РѕС‚С‹ РЅР° 365 РґРЅРµР№...")
         start_date = datetime.now()
         slots_created = 0
         for i in range(365):
@@ -129,9 +129,9 @@ def create_slots():
                 except:
                     pass
         conn.commit()
-        print(f"? Создано {slots_created} слотов")
+        print(f"? РЎРѕР·РґР°РЅРѕ {slots_created} СЃР»РѕС‚РѕРІ")
     else:
-        print(f"? Слоты уже существуют ({count} шт.)")
+        print(f"? РЎР»РѕС‚С‹ СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓСЋС‚ ({count} С€С‚.)")
     
     conn.close()
 
@@ -147,7 +147,7 @@ def ensure_future_slots():
     count = cursor.fetchone()[0]
     
     if count < 100:
-        print("?? Добавляю слоты на будущие месяцы...")
+        print("?? Р”РѕР±Р°РІР»СЏСЋ СЃР»РѕС‚С‹ РЅР° Р±СѓРґСѓС‰РёРµ РјРµСЃСЏС†С‹...")
         start_date = datetime.now() + timedelta(days=30)
         slots_created = 0
         for i in range(335):
@@ -163,22 +163,22 @@ def ensure_future_slots():
                 except:
                     pass
         conn.commit()
-        print(f"? Добавлено {slots_created} новых слотов")
+        print(f"? Р”РѕР±Р°РІР»РµРЅРѕ {slots_created} РЅРѕРІС‹С… СЃР»РѕС‚РѕРІ")
     
     conn.close()
 
-# Инициализация БД
-print("?? Инициализация базы данных...")
+# РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ Р‘Р”
+print("?? РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ Р±Р°Р·С‹ РґР°РЅРЅС‹С…...")
 init_db()
 create_slots()
 ensure_future_slots()
 print("=" * 50)
 
-# ========== ПРОВЕРКА ПОДПИСКИ ==========
+# ========== РџР РћР’Р•Р РљРђ РџРћР”РџРРЎРљР ==========
 def check_subscription(user_id):
-    return True  # Временно для теста
+    return True  # Р’СЂРµРјРµРЅРЅРѕ РґР»СЏ С‚РµСЃС‚Р°
 
-# ========== КЛАВИАТУРЫ ==========
+# ========== РљР›РђР’РРђРўРЈР Р« ==========
 def main_menu(user_id=None):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     
@@ -191,32 +191,32 @@ def main_menu(user_id=None):
         conn.close()
     
     if has_booking:
-        markup.add("? Отменить запись")
+        markup.add("? РћС‚РјРµРЅРёС‚СЊ Р·Р°РїРёСЃСЊ")
     else:
-        markup.add("?? Записаться")
+        markup.add("?? Р—Р°РїРёСЃР°С‚СЊСЃСЏ")
     
-    markup.add("?? Прайсы", "?? Портфолио")
+    markup.add("?? РџСЂР°Р№СЃС‹", "?? РџРѕСЂС‚С„РѕР»РёРѕ")
     
     if user_id and user_id in ADMIN_IDS:
-        markup.add("?? Админ")
+        markup.add("?? РђРґРјРёРЅ")
     
     return markup
 
 def sub_keyboard():
     markup = types.InlineKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton("?? Подписаться", url=CHANNEL_URL))
-    markup.add(types.InlineKeyboardButton("? Проверить", callback_data="check_sub"))
+    markup.add(types.InlineKeyboardButton("?? РџРѕРґРїРёСЃР°С‚СЊСЃСЏ", url=CHANNEL_URL))
+    markup.add(types.InlineKeyboardButton("? РџСЂРѕРІРµСЂРёС‚СЊ", callback_data="check_sub"))
     return markup
 
 def services_keyboard():
     markup = types.InlineKeyboardMarkup(row_width=2)
     markup.add(
-        types.InlineKeyboardButton(" Френч - 1000?", callback_data="service_french"),
-        types.InlineKeyboardButton(" Квадрат - 500?", callback_data="service_square"),
-        types.InlineKeyboardButton(" Дизайн - от 200?", callback_data="service_design"),
-        types.InlineKeyboardButton(" Укрепление - 300?", callback_data="service_strength"),
-        types.InlineKeyboardButton(" Снятие - 200?", callback_data="service_remove"),
-        types.InlineKeyboardButton(" Назад", callback_data="back_to_main")
+        types.InlineKeyboardButton(" Р¤СЂРµРЅС‡ - 1000?", callback_data="service_french"),
+        types.InlineKeyboardButton(" РљРІР°РґСЂР°С‚ - 500?", callback_data="service_square"),
+        types.InlineKeyboardButton(" Р”РёР·Р°Р№РЅ - РѕС‚ 200?", callback_data="service_design"),
+        types.InlineKeyboardButton(" РЈРєСЂРµРїР»РµРЅРёРµ - 300?", callback_data="service_strength"),
+        types.InlineKeyboardButton(" РЎРЅСЏС‚РёРµ - 200?", callback_data="service_remove"),
+        types.InlineKeyboardButton(" РќР°Р·Р°Рґ", callback_data="back_to_main")
     )
     return markup
 
@@ -238,8 +238,8 @@ def calendar_keyboard(month_offset=0):
     
     first_day = datetime(current_year, current_month, 1)
     
-    month_names = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", 
-                   "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"]
+    month_names = ["РЇРЅРІР°СЂСЊ", "Р¤РµРІСЂР°Р»СЊ", "РњР°СЂС‚", "РђРїСЂРµР»СЊ", "РњР°Р№", "РСЋРЅСЊ", 
+                   "РСЋР»СЊ", "РђРІРіСѓСЃС‚", "РЎРµРЅС‚СЏР±СЂСЊ", "РћРєС‚СЏР±СЂСЊ", "РќРѕСЏР±СЂСЊ", "Р”РµРєР°Р±СЂСЊ"]
     month_name = month_names[current_month - 1]
     
     header_text = f"{month_name} {current_year}"
@@ -248,14 +248,14 @@ def calendar_keyboard(month_offset=0):
     nav_row = []
     if month_offset == 0:
         nav_row.append(types.InlineKeyboardButton(" ", callback_data="ignore"))
-        nav_row.append(types.InlineKeyboardButton("?? Следующий", callback_data="cal_next_month"))
+        nav_row.append(types.InlineKeyboardButton("?? РЎР»РµРґСѓСЋС‰РёР№", callback_data="cal_next_month"))
     else:
-        nav_row.append(types.InlineKeyboardButton("?? Предыдущий", callback_data="cal_prev_month"))
-        nav_row.append(types.InlineKeyboardButton("?? Следующий", callback_data="cal_next_month"))
+        nav_row.append(types.InlineKeyboardButton("?? РџСЂРµРґС‹РґСѓС‰РёР№", callback_data="cal_prev_month"))
+        nav_row.append(types.InlineKeyboardButton("?? РЎР»РµРґСѓСЋС‰РёР№", callback_data="cal_next_month"))
     
     markup.add(*nav_row)
     
-    week = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"]
+    week = ["РџРЅ", "Р’С‚", "РЎСЂ", "Р§С‚", "РџС‚", "РЎР±", "Р’СЃ"]
     week_buttons = []
     for day in week:
         week_buttons.append(types.InlineKeyboardButton(day, callback_data="ignore"))
@@ -309,7 +309,7 @@ def calendar_keyboard(month_offset=0):
             current_week.append(types.InlineKeyboardButton(" ", callback_data="ignore"))
         markup.add(*current_week)
     
-    markup.add(types.InlineKeyboardButton("?? Назад", callback_data="back_to_main"))
+    markup.add(types.InlineKeyboardButton("?? РќР°Р·Р°Рґ", callback_data="back_to_main"))
     return markup
 
 def time_keyboard(date):
@@ -325,7 +325,7 @@ def time_keyboard(date):
     conn.close()
     
     if not times:
-        markup.add(types.InlineKeyboardButton("? Нет свободных слотов", callback_data="ignore"))
+        markup.add(types.InlineKeyboardButton("? РќРµС‚ СЃРІРѕР±РѕРґРЅС‹С… СЃР»РѕС‚РѕРІ", callback_data="ignore"))
     else:
         date_obj = datetime.strptime(date, "%d.%m.%Y")
         day_offset = (date_obj - datetime.now()).days
@@ -336,19 +336,19 @@ def time_keyboard(date):
                 callback_data=f"time_{day_offset}_{t[0]}"
             ))
     
-    markup.add(types.InlineKeyboardButton("?? Назад", callback_data="back_to_calendar"))
+    markup.add(types.InlineKeyboardButton("?? РќР°Р·Р°Рґ", callback_data="back_to_calendar"))
     return markup
 
-# ========== АДМИН КЛАВИАТУРЫ ==========
+# ========== РђР”РњРРќ РљР›РђР’РРђРўРЈР Р« ==========
 def admin_keyboard():
     markup = types.InlineKeyboardMarkup(row_width=2)
     markup.add(
-        types.InlineKeyboardButton("?? Все записи", callback_data="admin_list"),
-        types.InlineKeyboardButton("? Добавить окно (час)", callback_data="admin_add_slot"),
-        types.InlineKeyboardButton("? Удалить окно", callback_data="admin_remove_slot"),
-        types.InlineKeyboardButton("?? Просмотр окон", callback_data="admin_view_slots"),
-        types.InlineKeyboardButton("? Создать окно", callback_data="admin_custom_slot"),
-        types.InlineKeyboardButton("Главное меню", callback_data="back_to_main")
+        types.InlineKeyboardButton("?? Р’СЃРµ Р·Р°РїРёСЃРё", callback_data="admin_list"),
+        types.InlineKeyboardButton("? Р”РѕР±Р°РІРёС‚СЊ РѕРєРЅРѕ (С‡Р°СЃ)", callback_data="admin_add_slot"),
+        types.InlineKeyboardButton("? РЈРґР°Р»РёС‚СЊ РѕРєРЅРѕ", callback_data="admin_remove_slot"),
+        types.InlineKeyboardButton("?? РџСЂРѕСЃРјРѕС‚СЂ РѕРєРѕРЅ", callback_data="admin_view_slots"),
+        types.InlineKeyboardButton("? РЎРѕР·РґР°С‚СЊ РѕРєРЅРѕ", callback_data="admin_custom_slot"),
+        types.InlineKeyboardButton("Р“Р»Р°РІРЅРѕРµ РјРµРЅСЋ", callback_data="back_to_main")
     )
     return markup
 
@@ -370,8 +370,8 @@ def admin_date_selection_keyboard(action, month_offset=0):
     
     first_day = datetime(current_year, current_month, 1)
     
-    month_names = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", 
-                   "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"]
+    month_names = ["РЇРЅРІР°СЂСЊ", "Р¤РµРІСЂР°Р»СЊ", "РњР°СЂС‚", "РђРїСЂРµР»СЊ", "РњР°Р№", "РСЋРЅСЊ", 
+                   "РСЋР»СЊ", "РђРІРіСѓСЃС‚", "РЎРµРЅС‚СЏР±СЂСЊ", "РћРєС‚СЏР±СЂСЊ", "РќРѕСЏР±СЂСЊ", "Р”РµРєР°Р±СЂСЊ"]
     month_name = month_names[current_month - 1]
     
     header_text = f"{month_name} {current_year}"
@@ -382,7 +382,7 @@ def admin_date_selection_keyboard(action, month_offset=0):
     nav_row.append(types.InlineKeyboardButton("??", callback_data=f"admin_next_month_{action}_{month_offset}"))
     markup.add(*nav_row)
     
-    week = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"]
+    week = ["РџРЅ", "Р’С‚", "РЎСЂ", "Р§С‚", "РџС‚", "РЎР±", "Р’СЃ"]
     week_buttons = []
     for day in week:
         week_buttons.append(types.InlineKeyboardButton(day, callback_data="ignore"))
@@ -456,7 +456,7 @@ def admin_date_selection_keyboard(action, month_offset=0):
             current_week.append(types.InlineKeyboardButton(" ", callback_data="ignore"))
         markup.add(*current_week)
     
-    markup.add(types.InlineKeyboardButton("?? Назад", callback_data="admin"))
+    markup.add(types.InlineKeyboardButton("?? РќР°Р·Р°Рґ", callback_data="admin"))
     return markup
 
 def admin_slots_management_keyboard(date, mode):
@@ -490,7 +490,7 @@ def admin_slots_management_keyboard(date, mode):
             ))
     
     conn.close()
-    markup.add(types.InlineKeyboardButton("?? Назад", callback_data="admin"))
+    markup.add(types.InlineKeyboardButton("?? РќР°Р·Р°Рґ", callback_data="admin"))
     return markup
 
 def admin_custom_date_keyboard(month_offset=0):
@@ -511,8 +511,8 @@ def admin_custom_date_keyboard(month_offset=0):
     
     first_day = datetime(current_year, current_month, 1)
     
-    month_names = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", 
-                   "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"]
+    month_names = ["РЇРЅРІР°СЂСЊ", "Р¤РµРІСЂР°Р»СЊ", "РњР°СЂС‚", "РђРїСЂРµР»СЊ", "РњР°Р№", "РСЋРЅСЊ", 
+                   "РСЋР»СЊ", "РђРІРіСѓСЃС‚", "РЎРµРЅС‚СЏР±СЂСЊ", "РћРєС‚СЏР±СЂСЊ", "РќРѕСЏР±СЂСЊ", "Р”РµРєР°Р±СЂСЊ"]
     month_name = month_names[current_month - 1]
     
     header_text = f"{month_name} {current_year}"
@@ -523,7 +523,7 @@ def admin_custom_date_keyboard(month_offset=0):
     nav_row.append(types.InlineKeyboardButton("??", callback_data=f"custom_next_month_{month_offset}"))
     markup.add(*nav_row)
     
-    week = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"]
+    week = ["РџРЅ", "Р’С‚", "РЎСЂ", "Р§С‚", "РџС‚", "РЎР±", "Р’СЃ"]
     week_buttons = []
     for day in week:
         week_buttons.append(types.InlineKeyboardButton(day, callback_data="ignore"))
@@ -561,10 +561,10 @@ def admin_custom_date_keyboard(month_offset=0):
             current_week.append(types.InlineKeyboardButton(" ", callback_data="ignore"))
         markup.add(*current_week)
     
-    markup.add(types.InlineKeyboardButton("?? Назад", callback_data="admin"))
+    markup.add(types.InlineKeyboardButton("?? РќР°Р·Р°Рґ", callback_data="admin"))
     return markup
 
-# ========== ОСНОВНЫЕ ОБРАБОТЧИКИ ==========
+# ========== РћРЎРќРћР’РќР«Р• РћР‘Р РђР‘РћРўР§РРљР ==========
 @bot.message_handler(commands=['start'])
 def start(message):
     user_id = message.from_user.id
@@ -579,21 +579,21 @@ def start(message):
         conn.commit()
         conn.close()
     except Exception as e:
-        print(f"Ошибка при сохранении пользователя: {e}")
+        print(f"РћС€РёР±РєР° РїСЂРё СЃРѕС…СЂР°РЅРµРЅРёРё РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ: {e}")
     
     if check_subscription(user_id):
         bot.send_message(
             message.chat.id,
-            f"?? Здравствуйте, {message.from_user.first_name}!\n\n"
-            f"?? Добро пожаловать в бот записи к мастеру маникюра.\n"
-            f"Выберите действие:",
+            f"?? Р—РґСЂР°РІСЃС‚РІСѓР№С‚Рµ, {message.from_user.first_name}!\n\n"
+            f"?? Р”РѕР±СЂРѕ РїРѕР¶Р°Р»РѕРІР°С‚СЊ РІ Р±РѕС‚ Р·Р°РїРёСЃРё Рє РјР°СЃС‚РµСЂСѓ РјР°РЅРёРєСЋСЂР°.\n"
+            f"Р’С‹Р±РµСЂРёС‚Рµ РґРµР№СЃС‚РІРёРµ:",
             reply_markup=main_menu(user_id)
         )
     else:
         bot.send_message(
             message.chat.id,
-            f"?? Здравствуйте!\n\n"
-            f"?? Для записи подпишитесь на канал:",
+            f"?? Р—РґСЂР°РІСЃС‚РІСѓР№С‚Рµ!\n\n"
+            f"?? Р”Р»СЏ Р·Р°РїРёСЃРё РїРѕРґРїРёС€РёС‚РµСЃСЊ РЅР° РєР°РЅР°Р»:",
             reply_markup=sub_keyboard()
         )
 
@@ -603,14 +603,14 @@ def check_sub_callback(call):
         bot.delete_message(call.message.chat.id, call.message.message_id)
         bot.send_message(
             call.message.chat.id,
-            f"? Подписка подтверждена!\n\n"
-            f"?? Выберите действие:",
+            f"? РџРѕРґРїРёСЃРєР° РїРѕРґС‚РІРµСЂР¶РґРµРЅР°!\n\n"
+            f"?? Р’С‹Р±РµСЂРёС‚Рµ РґРµР№СЃС‚РІРёРµ:",
             reply_markup=main_menu(call.from_user.id)
         )
     else:
-        bot.answer_callback_query(call.id, "? Вы не подписались!", show_alert=True)
+        bot.answer_callback_query(call.id, "? Р’С‹ РЅРµ РїРѕРґРїРёСЃР°Р»РёСЃСЊ!", show_alert=True)
 
-# Словари для хранения offset
+# РЎР»РѕРІР°СЂРё РґР»СЏ С…СЂР°РЅРµРЅРёСЏ offset
 calendar_offsets = {}
 
 @bot.callback_query_handler(func=lambda call: call.data == "cal_next_month")
@@ -620,13 +620,13 @@ def calendar_next_month(call):
     new_offset = current_offset + 1
     
     if new_offset > 1:
-        bot.answer_callback_query(call.id, "? Можно записаться только на следующий месяц", show_alert=True)
+        bot.answer_callback_query(call.id, "? РњРѕР¶РЅРѕ Р·Р°РїРёСЃР°С‚СЊСЃСЏ С‚РѕР»СЊРєРѕ РЅР° СЃР»РµРґСѓСЋС‰РёР№ РјРµСЃСЏС†", show_alert=True)
         return
     
     calendar_offsets[user_id] = new_offset
     
     bot.edit_message_text(
-        "?? Выберите дату:",
+        "?? Р’С‹Р±РµСЂРёС‚Рµ РґР°С‚Сѓ:",
         call.message.chat.id,
         call.message.message_id,
         reply_markup=calendar_keyboard(new_offset)
@@ -640,24 +640,24 @@ def calendar_prev_month(call):
     new_offset = current_offset - 1
     
     if new_offset < 0:
-        bot.answer_callback_query(call.id, "? Нельзя записаться на прошедшие даты", show_alert=True)
+        bot.answer_callback_query(call.id, "? РќРµР»СЊР·СЏ Р·Р°РїРёСЃР°С‚СЊСЃСЏ РЅР° РїСЂРѕС€РµРґС€РёРµ РґР°С‚С‹", show_alert=True)
         return
     
     calendar_offsets[user_id] = new_offset
     
     bot.edit_message_text(
-        "?? Выберите дату:",
+        "?? Р’С‹Р±РµСЂРёС‚Рµ РґР°С‚Сѓ:",
         call.message.chat.id,
         call.message.message_id,
         reply_markup=calendar_keyboard(new_offset)
     )
     bot.answer_callback_query(call.id)
 
-@bot.message_handler(func=lambda message: message.text == "?? Записаться")
+@bot.message_handler(func=lambda message: message.text == "?? Р—Р°РїРёСЃР°С‚СЊСЃСЏ")
 def book(message):
     user_id = message.from_user.id
     
-    # Очищаем старые временные данные
+    # РћС‡РёС‰Р°РµРј СЃС‚Р°СЂС‹Рµ РІСЂРµРјРµРЅРЅС‹Рµ РґР°РЅРЅС‹Рµ
     conn = sqlite3.connect('manicure.db')
     cursor = conn.cursor()
     cursor.execute("DELETE FROM temp WHERE user_id = ?", (user_id,))
@@ -665,7 +665,7 @@ def book(message):
     conn.close()
     
     if not check_subscription(user_id):
-        bot.send_message(message.chat.id, "? Сначала подпишитесь!", reply_markup=sub_keyboard())
+        bot.send_message(message.chat.id, "? РЎРЅР°С‡Р°Р»Р° РїРѕРґРїРёС€РёС‚РµСЃСЊ!", reply_markup=sub_keyboard())
         return
     
     conn = sqlite3.connect('manicure.db')
@@ -675,12 +675,12 @@ def book(message):
     conn.close()
     
     if exists:
-        bot.send_message(message.chat.id, "? У вас уже есть активная запись!")
+        bot.send_message(message.chat.id, "? РЈ РІР°СЃ СѓР¶Рµ РµСЃС‚СЊ Р°РєС‚РёРІРЅР°СЏ Р·Р°РїРёСЃСЊ!")
         return
     
     bot.send_message(
         message.chat.id,
-        "?? Выберите дату для записи:",
+        "?? Р’С‹Р±РµСЂРёС‚Рµ РґР°С‚Сѓ РґР»СЏ Р·Р°РїРёСЃРё:",
         reply_markup=calendar_keyboard(0)
     )
 
@@ -699,7 +699,7 @@ def calendar_date_selected(call):
     conn.close()
     
     bot.edit_message_text(
-        "? Выберите время:",
+        "? Р’С‹Р±РµСЂРёС‚Рµ РІСЂРµРјСЏ:",
         call.message.chat.id,
         call.message.message_id,
         reply_markup=time_keyboard(date)
@@ -733,31 +733,31 @@ def time_choice(call):
     
     msg = bot.send_message(
         call.message.chat.id,
-        "?? Введите ваше имя:"
+        "?? Р’РІРµРґРёС‚Рµ РІР°С€Рµ РёРјСЏ:"
     )
     bot.register_next_step_handler(msg, get_phone, user_id)
 
-    # ========== ПОЛУЧЕНИЕ ИМЕНИ И ТЕЛЕФОНА ==========
+    # ========== РџРћР›РЈР§Р•РќРР• РРњР•РќР Р РўР•Р›Р•Р¤РћРќРђ ==========
 def get_phone(message, user_id):
-    # Проверяем, не является ли сообщение командой или кнопкой меню
-    if message.text in ["?? Записаться", "?? Прайсы", "?? Портфолио", "?? Админ", "? Отменить запись"]:
-        # Если это кнопка меню - очищаем временные данные и обрабатываем команду
+    # РџСЂРѕРІРµСЂСЏРµРј, РЅРµ СЏРІР»СЏРµС‚СЃСЏ Р»Рё СЃРѕРѕР±С‰РµРЅРёРµ РєРѕРјР°РЅРґРѕР№ РёР»Рё РєРЅРѕРїРєРѕР№ РјРµРЅСЋ
+    if message.text in ["?? Р—Р°РїРёСЃР°С‚СЊСЃСЏ", "?? РџСЂР°Р№СЃС‹", "?? РџРѕСЂС‚С„РѕР»РёРѕ", "?? РђРґРјРёРЅ", "? РћС‚РјРµРЅРёС‚СЊ Р·Р°РїРёСЃСЊ"]:
+        # Р•СЃР»Рё СЌС‚Рѕ РєРЅРѕРїРєР° РјРµРЅСЋ - РѕС‡РёС‰Р°РµРј РІСЂРµРјРµРЅРЅС‹Рµ РґР°РЅРЅС‹Рµ Рё РѕР±СЂР°Р±Р°С‚С‹РІР°РµРј РєРѕРјР°РЅРґСѓ
         conn = sqlite3.connect('manicure.db')
         cursor = conn.cursor()
         cursor.execute("DELETE FROM temp WHERE user_id = ?", (user_id,))
         conn.commit()
         conn.close()
         
-        # Перенаправляем на обработку кнопки
-        if message.text == "?? Прайсы":
+        # РџРµСЂРµРЅР°РїСЂР°РІР»СЏРµРј РЅР° РѕР±СЂР°Р±РѕС‚РєСѓ РєРЅРѕРїРєРё
+        if message.text == "?? РџСЂР°Р№СЃС‹":
             prices(message)
-        elif message.text == "?? Портфолио":
+        elif message.text == "?? РџРѕСЂС‚С„РѕР»РёРѕ":
             portfolio(message)
-        elif message.text == "?? Админ":
+        elif message.text == "?? РђРґРјРёРЅ":
             admin_panel(message)
-        elif message.text == "? Отменить запись":
+        elif message.text == "? РћС‚РјРµРЅРёС‚СЊ Р·Р°РїРёСЃСЊ":
             cancel_booking(message)
-        elif message.text == "?? Записаться":
+        elif message.text == "?? Р—Р°РїРёСЃР°С‚СЊСЃСЏ":
             book(message)
         return
     
@@ -774,30 +774,30 @@ def get_phone(message, user_id):
     
     msg = bot.send_message(
         message.chat.id,
-        "?? Введите номер телефона:"
+        "?? Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ С‚РµР»РµС„РѕРЅР°:"
     )
     bot.register_next_step_handler(msg, confirm_phone_first, user_id)
 
 def confirm_phone_first(message, user_id):
-    # Проверяем, не является ли сообщение командой или кнопкой меню
-    if message.text in ["?? Записаться", "?? Прайсы", "?? Портфолио", "?? Админ", "? Отменить запись"]:
-        # Если это кнопка меню - очищаем временные данные и обрабатываем команду
+    # РџСЂРѕРІРµСЂСЏРµРј, РЅРµ СЏРІР»СЏРµС‚СЃСЏ Р»Рё СЃРѕРѕР±С‰РµРЅРёРµ РєРѕРјР°РЅРґРѕР№ РёР»Рё РєРЅРѕРїРєРѕР№ РјРµРЅСЋ
+    if message.text in ["?? Р—Р°РїРёСЃР°С‚СЊСЃСЏ", "?? РџСЂР°Р№СЃС‹", "?? РџРѕСЂС‚С„РѕР»РёРѕ", "?? РђРґРјРёРЅ", "? РћС‚РјРµРЅРёС‚СЊ Р·Р°РїРёСЃСЊ"]:
+        # Р•СЃР»Рё СЌС‚Рѕ РєРЅРѕРїРєР° РјРµРЅСЋ - РѕС‡РёС‰Р°РµРј РІСЂРµРјРµРЅРЅС‹Рµ РґР°РЅРЅС‹Рµ Рё РѕР±СЂР°Р±Р°С‚С‹РІР°РµРј РєРѕРјР°РЅРґСѓ
         conn = sqlite3.connect('manicure.db')
         cursor = conn.cursor()
         cursor.execute("DELETE FROM temp WHERE user_id = ?", (user_id,))
         conn.commit()
         conn.close()
         
-        # Перенаправляем на обработку кнопки
-        if message.text == "?? Прайсы":
+        # РџРµСЂРµРЅР°РїСЂР°РІР»СЏРµРј РЅР° РѕР±СЂР°Р±РѕС‚РєСѓ РєРЅРѕРїРєРё
+        if message.text == "?? РџСЂР°Р№СЃС‹":
             prices(message)
-        elif message.text == "?? Портфолио":
+        elif message.text == "?? РџРѕСЂС‚С„РѕР»РёРѕ":
             portfolio(message)
-        elif message.text == "?? Админ":
+        elif message.text == "?? РђРґРјРёРЅ":
             admin_panel(message)
-        elif message.text == "? Отменить запись":
+        elif message.text == "? РћС‚РјРµРЅРёС‚СЊ Р·Р°РїРёСЃСЊ":
             cancel_booking(message)
-        elif message.text == "?? Записаться":
+        elif message.text == "?? Р—Р°РїРёСЃР°С‚СЊСЃСЏ":
             book(message)
         return
     
@@ -806,9 +806,9 @@ def confirm_phone_first(message, user_id):
     if len(phone1) < 10:
         bot.send_message(
             message.chat.id,
-            "? Слишком короткий номер. Введите номер еще раз:"
+            "? РЎР»РёС€РєРѕРј РєРѕСЂРѕС‚РєРёР№ РЅРѕРјРµСЂ. Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ РµС‰Рµ СЂР°Р·:"
         )
-        msg = bot.send_message(message.chat.id, "?? Введите номер телефона:")
+        msg = bot.send_message(message.chat.id, "?? Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ С‚РµР»РµС„РѕРЅР°:")
         bot.register_next_step_handler(msg, confirm_phone_first, user_id)
         return
     
@@ -823,31 +823,31 @@ def confirm_phone_first(message, user_id):
     
     msg = bot.send_message(
         message.chat.id,
-        f"?? Подтвердите номер:\n{phone1}\n\n"
-        f"Введите его еще раз:"
+        f"?? РџРѕРґС‚РІРµСЂРґРёС‚Рµ РЅРѕРјРµСЂ:\n{phone1}\n\n"
+        f"Р’РІРµРґРёС‚Рµ РµРіРѕ РµС‰Рµ СЂР°Р·:"
     )
     bot.register_next_step_handler(msg, confirm_phone_second, user_id, phone1)
 
     def confirm_phone_second(message, user_id, phone1):
-    # Проверяем, не является ли сообщение командой или кнопкой меню
-     if message.text in ["?? Записаться", "?? Прайсы", "?? Портфолио", "?? Админ", "? Отменить запись"]:
-        # Если это кнопка меню - очищаем временные данные и обрабатываем команду
+    # РџСЂРѕРІРµСЂСЏРµРј, РЅРµ СЏРІР»СЏРµС‚СЃСЏ Р»Рё СЃРѕРѕР±С‰РµРЅРёРµ РєРѕРјР°РЅРґРѕР№ РёР»Рё РєРЅРѕРїРєРѕР№ РјРµРЅСЋ
+     if message.text in ["?? Р—Р°РїРёСЃР°С‚СЊСЃСЏ", "?? РџСЂР°Р№СЃС‹", "?? РџРѕСЂС‚С„РѕР»РёРѕ", "?? РђРґРјРёРЅ", "? РћС‚РјРµРЅРёС‚СЊ Р·Р°РїРёСЃСЊ"]:
+        # Р•СЃР»Рё СЌС‚Рѕ РєРЅРѕРїРєР° РјРµРЅСЋ - РѕС‡РёС‰Р°РµРј РІСЂРµРјРµРЅРЅС‹Рµ РґР°РЅРЅС‹Рµ Рё РѕР±СЂР°Р±Р°С‚С‹РІР°РµРј РєРѕРјР°РЅРґСѓ
         conn = sqlite3.connect('manicure.db')
         cursor = conn.cursor()
         cursor.execute("DELETE FROM temp WHERE user_id = ?", (user_id,))
         conn.commit()
         conn.close()
         
-        # Перенаправляем на обработку кнопки
-        if message.text == "?? Прайсы":
+        # РџРµСЂРµРЅР°РїСЂР°РІР»СЏРµРј РЅР° РѕР±СЂР°Р±РѕС‚РєСѓ РєРЅРѕРїРєРё
+        if message.text == "?? РџСЂР°Р№СЃС‹":
             prices(message)
-        elif message.text == "?? Портфолио":
+        elif message.text == "?? РџРѕСЂС‚С„РѕР»РёРѕ":
             portfolio(message)
-        elif message.text == "?? Админ":
+        elif message.text == "?? РђРґРјРёРЅ":
             admin_panel(message)
-        elif message.text == "? Отменить запись":
+        elif message.text == "? РћС‚РјРµРЅРёС‚СЊ Р·Р°РїРёСЃСЊ":
             cancel_booking(message)
-        elif message.text == "?? Записаться":
+        elif message.text == "?? Р—Р°РїРёСЃР°С‚СЊСЃСЏ":
             book(message)
         return
     
@@ -858,7 +858,7 @@ def confirm_phone_first(message, user_id):
     else:
         bot.send_message(
             message.chat.id,
-            "? Номера не совпадают. Начните ввод заново."
+            "? РќРѕРјРµСЂР° РЅРµ СЃРѕРІРїР°РґР°СЋС‚. РќР°С‡РЅРёС‚Рµ РІРІРѕРґ Р·Р°РЅРѕРІРѕ."
         )
         
         conn = sqlite3.connect('manicure.db')
@@ -869,30 +869,30 @@ def confirm_phone_first(message, user_id):
         
         bot.send_message(
             message.chat.id,
-            "?? Главное меню:",
+            "?? Р“Р»Р°РІРЅРѕРµ РјРµРЅСЋ:",
             reply_markup=main_menu(user_id)
         )
 
         def save_booking(message, user_id, phone):
-    # Проверяем, не является ли сообщение командой или кнопкой меню
-         if message.text in ["?? Записаться", "?? Прайсы", "?? Портфолио", "?? Админ", "? Отменить запись"]:
-        # Если это кнопка меню - очищаем временные данные и обрабатываем команду
+    # РџСЂРѕРІРµСЂСЏРµРј, РЅРµ СЏРІР»СЏРµС‚СЃСЏ Р»Рё СЃРѕРѕР±С‰РµРЅРёРµ РєРѕРјР°РЅРґРѕР№ РёР»Рё РєРЅРѕРїРєРѕР№ РјРµРЅСЋ
+         if message.text in ["?? Р—Р°РїРёСЃР°С‚СЊСЃСЏ", "?? РџСЂР°Р№СЃС‹", "?? РџРѕСЂС‚С„РѕР»РёРѕ", "?? РђРґРјРёРЅ", "? РћС‚РјРµРЅРёС‚СЊ Р·Р°РїРёСЃСЊ"]:
+        # Р•СЃР»Рё СЌС‚Рѕ РєРЅРѕРїРєР° РјРµРЅСЋ - РѕС‡РёС‰Р°РµРј РІСЂРµРјРµРЅРЅС‹Рµ РґР°РЅРЅС‹Рµ Рё РѕР±СЂР°Р±Р°С‚С‹РІР°РµРј РєРѕРјР°РЅРґСѓ
           conn = sqlite3.connect('manicure.db')
         cursor = conn.cursor()
         cursor.execute("DELETE FROM temp WHERE user_id = ?", (user_id,))
         conn.commit()
         conn.close()
         
-        # Перенаправляем на обработку кнопки
-        if message.text == "?? Прайсы":
+        # РџРµСЂРµРЅР°РїСЂР°РІР»СЏРµРј РЅР° РѕР±СЂР°Р±РѕС‚РєСѓ РєРЅРѕРїРєРё
+        if message.text == "?? РџСЂР°Р№СЃС‹":
             prices(message)
-        elif message.text == "?? Портфолио":
+        elif message.text == "?? РџРѕСЂС‚С„РѕР»РёРѕ":
             portfolio(message)
-        elif message.text == "?? Админ":
+        elif message.text == "?? РђРґРјРёРЅ":
             admin_panel(message)
-        elif message.text == "? Отменить запись":
+        elif message.text == "? РћС‚РјРµРЅРёС‚СЊ Р·Р°РїРёСЃСЊ":
             cancel_booking(message)
-        elif message.text == "?? Записаться":
+        elif message.text == "?? Р—Р°РїРёСЃР°С‚СЊСЃСЏ":
             book(message)
         return
     
@@ -911,7 +911,7 @@ def confirm_phone_first(message, user_id):
         cursor.execute('''
             INSERT INTO bookings (user_id, name, phone, service, date, time)
             VALUES (?, ?, ?, ?, ?, ?)
-        ''', (user_id, name, phone, "Маникюр", date, time))
+        ''', (user_id, name, phone, "РњР°РЅРёРєСЋСЂ", date, time))
         
         cursor.execute(
             "UPDATE slots SET available = 0, booked_by = ? WHERE date = ? AND time = ?",
@@ -924,12 +924,12 @@ def confirm_phone_first(message, user_id):
         
         bot.send_message(
             message.chat.id,
-            f"? <b>Вы успешно записаны!</b>\n\n"
-            f"?? Дата: {date}\n"
-            f"? Время: {time}\n"
-            f"?? Имя: {name}\n"
-            f"?? Телефон: {phone}\n\n"
-            f"Ждём вас! ??",
+            f"? <b>Р’С‹ СѓСЃРїРµС€РЅРѕ Р·Р°РїРёСЃР°РЅС‹!</b>\n\n"
+            f"?? Р”Р°С‚Р°: {date}\n"
+            f"? Р’СЂРµРјСЏ: {time}\n"
+            f"?? РРјСЏ: {name}\n"
+            f"?? РўРµР»РµС„РѕРЅ: {phone}\n\n"
+            f"Р–РґС‘Рј РІР°СЃ! ??",
             parse_mode="HTML",
             reply_markup=main_menu(user_id)
         )
@@ -938,11 +938,11 @@ def confirm_phone_first(message, user_id):
             try:
                 bot.send_message(
                     admin_id,
-                    f"? <b>Новая запись!</b>\n\n"
-                    f"?? Клиент: {name}\n"
-                    f"?? Телефон: {phone}\n"
-                    f"?? Дата: {date}\n"
-                    f"? Время: {time}",
+                    f"? <b>РќРѕРІР°СЏ Р·Р°РїРёСЃСЊ!</b>\n\n"
+                    f"?? РљР»РёРµРЅС‚: {name}\n"
+                    f"?? РўРµР»РµС„РѕРЅ: {phone}\n"
+                    f"?? Р”Р°С‚Р°: {date}\n"
+                    f"? Р’СЂРµРјСЏ: {time}",
                     parse_mode="HTML"
                 )
             except:
@@ -950,37 +950,37 @@ def confirm_phone_first(message, user_id):
     else:
         bot.send_message(
             message.chat.id,
-            "? Ошибка при сохранении записи. Попробуйте снова.",
+            "? РћС€РёР±РєР° РїСЂРё СЃРѕС…СЂР°РЅРµРЅРёРё Р·Р°РїРёСЃРё. РџРѕРїСЂРѕР±СѓР№С‚Рµ СЃРЅРѕРІР°.",
             reply_markup=main_menu(user_id)
         )
     
     conn.close()
 
-@bot.message_handler(func=lambda message: message.text == "?? Прайсы")
+@bot.message_handler(func=lambda message: message.text == "?? РџСЂР°Р№СЃС‹")
 def prices(message):
     if not check_subscription(message.from_user.id):
-        bot.send_message(message.chat.id, "? Сначала подпишитесь!", reply_markup=sub_keyboard())
+        bot.send_message(message.chat.id, "? РЎРЅР°С‡Р°Р»Р° РїРѕРґРїРёС€РёС‚РµСЃСЊ!", reply_markup=sub_keyboard())
         return
     
     bot.send_message(
         message.chat.id,
-        "?? <b>Наши услуги</b>\n\n"
-        "Нажмите на услугу, чтобы увидеть фото и описание:",
+        "?? <b>РќР°С€Рё СѓСЃР»СѓРіРё</b>\n\n"
+        "РќР°Р¶РјРёС‚Рµ РЅР° СѓСЃР»СѓРіСѓ, С‡С‚РѕР±С‹ СѓРІРёРґРµС‚СЊ С„РѕС‚Рѕ Рё РѕРїРёСЃР°РЅРёРµ:",
         reply_markup=services_keyboard(),
         parse_mode="HTML"
     )
 
-@bot.message_handler(func=lambda message: message.text == "?? Портфолио")
+@bot.message_handler(func=lambda message: message.text == "?? РџРѕСЂС‚С„РѕР»РёРѕ")
 def portfolio(message):
     markup = types.InlineKeyboardMarkup()
     markup.add(types.InlineKeyboardButton(
-        "?? Смотреть портфолио",
+        "?? РЎРјРѕС‚СЂРµС‚СЊ РїРѕСЂС‚С„РѕР»РёРѕ",
         url="https://t.me/portfolioprimeer"
     ))
     bot.send_message(
         message.chat.id,
-        "?? <b>Наше портфолио</b>\n\n"
-        "Все наши работы в Telegram канале:",
+        "?? <b>РќР°С€Рµ РїРѕСЂС‚С„РѕР»РёРѕ</b>\n\n"
+        "Р’СЃРµ РЅР°С€Рё СЂР°Р±РѕС‚С‹ РІ Telegram РєР°РЅР°Р»Рµ:",
         reply_markup=markup,
         parse_mode="HTML"
     )
@@ -990,7 +990,7 @@ def back_to_calendar(call):
     user_id = call.from_user.id
     current_offset = calendar_offsets.get(user_id, 0)
     bot.edit_message_text(
-        "?? Выберите дату:",
+        "?? Р’С‹Р±РµСЂРёС‚Рµ РґР°С‚Сѓ:",
         call.message.chat.id,
         call.message.message_id,
         reply_markup=calendar_keyboard(current_offset)
@@ -1006,13 +1006,13 @@ def service_choice(call):
         return
     
     text = (
-        f"? <b>{service['name']}</b> — {service['price']}\n\n"
+        f"? <b>{service['name']}</b> вЂ” {service['price']}\n\n"
         f"{service['desc']}"
     )
     
     markup = types.InlineKeyboardMarkup()
     markup.add(
-        types.InlineKeyboardButton("?? К услугам", callback_data="back_to_services")
+        types.InlineKeyboardButton("?? Рљ СѓСЃР»СѓРіР°Рј", callback_data="back_to_services")
     )
     
     try:
@@ -1025,7 +1025,7 @@ def service_choice(call):
         )
         bot.delete_message(call.message.chat.id, call.message.message_id)
     except Exception as e:
-        print(f"Ошибка отправки фото: {e}")
+        print(f"РћС€РёР±РєР° РѕС‚РїСЂР°РІРєРё С„РѕС‚Рѕ: {e}")
         bot.send_message(
             call.message.chat.id,
             text,
@@ -1040,27 +1040,27 @@ def back_to_services(call):
         bot.delete_message(call.message.chat.id, call.message.message_id)
         bot.send_message(
             call.message.chat.id,
-            "?? <b>Наши услуги</b>\n\n"
-            "Нажмите на услугу, чтобы увидеть фото и описание:",
+            "?? <b>РќР°С€Рё СѓСЃР»СѓРіРё</b>\n\n"
+            "РќР°Р¶РјРёС‚Рµ РЅР° СѓСЃР»СѓРіСѓ, С‡С‚РѕР±С‹ СѓРІРёРґРµС‚СЊ С„РѕС‚Рѕ Рё РѕРїРёСЃР°РЅРёРµ:",
             reply_markup=services_keyboard(),
             parse_mode="HTML"
         )
     except Exception as e:
-        print(f"Ошибка в back_to_services: {e}")
+        print(f"РћС€РёР±РєР° РІ back_to_services: {e}")
         bot.send_message(
             call.message.chat.id,
-            "?? <b>Наши услуги</b>\n\n"
-            "Нажмите на услугу, чтобы увидеть фото и описание:",
+            "?? <b>РќР°С€Рё СѓСЃР»СѓРіРё</b>\n\n"
+            "РќР°Р¶РјРёС‚Рµ РЅР° СѓСЃР»СѓРіСѓ, С‡С‚РѕР±С‹ СѓРІРёРґРµС‚СЊ С„РѕС‚Рѕ Рё РѕРїРёСЃР°РЅРёРµ:",
             reply_markup=services_keyboard(),
             parse_mode="HTML"
         )
     
     bot.answer_callback_query(call.id)
 
-@bot.message_handler(func=lambda message: message.text == "? Отменить запись")
+@bot.message_handler(func=lambda message: message.text == "? РћС‚РјРµРЅРёС‚СЊ Р·Р°РїРёСЃСЊ")
 def cancel_booking(message):
     if not check_subscription(message.from_user.id):
-        bot.send_message(message.chat.id, "? Сначала подпишитесь!", reply_markup=sub_keyboard())
+        bot.send_message(message.chat.id, "? РЎРЅР°С‡Р°Р»Р° РїРѕРґРїРёС€РёС‚РµСЃСЊ!", reply_markup=sub_keyboard())
         return
     
     conn = sqlite3.connect('manicure.db')
@@ -1074,22 +1074,22 @@ def cancel_booking(message):
         
         markup = types.InlineKeyboardMarkup()
         markup.add(
-            types.InlineKeyboardButton("? Да, отменить", callback_data="confirm_cancel"),
-            types.InlineKeyboardButton("? Нет, оставить", callback_data="back_to_main")
+            types.InlineKeyboardButton("? Р”Р°, РѕС‚РјРµРЅРёС‚СЊ", callback_data="confirm_cancel"),
+            types.InlineKeyboardButton("? РќРµС‚, РѕСЃС‚Р°РІРёС‚СЊ", callback_data="back_to_main")
         )
         
         bot.send_message(
             message.chat.id,
-            f"? <b>Подтверждение отмены</b>\n\n"
-            f"?? Услуга: {service}\n"
-            f"?? Дата: {date}\n"
-            f"? Время: {time}\n\n"
-            f"Вы уверены, что хотите отменить запись?",
+            f"? <b>РџРѕРґС‚РІРµСЂР¶РґРµРЅРёРµ РѕС‚РјРµРЅС‹</b>\n\n"
+            f"?? РЈСЃР»СѓРіР°: {service}\n"
+            f"?? Р”Р°С‚Р°: {date}\n"
+            f"? Р’СЂРµРјСЏ: {time}\n\n"
+            f"Р’С‹ СѓРІРµСЂРµРЅС‹, С‡С‚Рѕ С…РѕС‚РёС‚Рµ РѕС‚РјРµРЅРёС‚СЊ Р·Р°РїРёСЃСЊ?",
             reply_markup=markup,
             parse_mode="HTML"
         )
     else:
-        bot.send_message(message.chat.id, "? У вас нет активной записи")
+        bot.send_message(message.chat.id, "? РЈ РІР°СЃ РЅРµС‚ Р°РєС‚РёРІРЅРѕР№ Р·Р°РїРёСЃРё")
     
     conn.close()
 
@@ -1114,8 +1114,8 @@ def confirm_cancel(call):
         conn.commit()
         
         bot.edit_message_text(
-            "? <b>Запись успешно отменена!</b>\n\n"
-            "Вы можете записаться снова в любое время.",
+            "? <b>Р—Р°РїРёСЃСЊ СѓСЃРїРµС€РЅРѕ РѕС‚РјРµРЅРµРЅР°!</b>\n\n"
+            "Р’С‹ РјРѕР¶РµС‚Рµ Р·Р°РїРёСЃР°С‚СЊСЃСЏ СЃРЅРѕРІР° РІ Р»СЋР±РѕРµ РІСЂРµРјСЏ.",
             call.message.chat.id,
             call.message.message_id,
             parse_mode="HTML"
@@ -1123,7 +1123,7 @@ def confirm_cancel(call):
         
         bot.send_message(
             call.message.chat.id,
-            "?? Главное меню:",
+            "?? Р“Р»Р°РІРЅРѕРµ РјРµРЅСЋ:",
             reply_markup=main_menu(user_id)
         )
         
@@ -1131,19 +1131,19 @@ def confirm_cancel(call):
             try:
                 bot.send_message(
                     admin_id,
-                    f"? <b>Запись отменена</b>\n\n"
-                    f"?? Пользователь: {call.from_user.first_name}\n"
+                    f"? <b>Р—Р°РїРёСЃСЊ РѕС‚РјРµРЅРµРЅР°</b>\n\n"
+                    f"?? РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ: {call.from_user.first_name}\n"
                     f"?? ID: {user_id}\n"
-                    f"?? Услуга: {service}\n"
-                    f"?? Дата: {date}\n"
-                    f"? Время: {time}",
+                    f"?? РЈСЃР»СѓРіР°: {service}\n"
+                    f"?? Р”Р°С‚Р°: {date}\n"
+                    f"? Р’СЂРµРјСЏ: {time}",
                     parse_mode="HTML"
                 )
             except:
                 pass
     else:
         bot.edit_message_text(
-            "? Запись не найдена или уже отменена.",
+            "? Р—Р°РїРёСЃСЊ РЅРµ РЅР°Р№РґРµРЅР° РёР»Рё СѓР¶Рµ РѕС‚РјРµРЅРµРЅР°.",
             call.message.chat.id,
             call.message.message_id
         )
@@ -1156,7 +1156,7 @@ def back_to_main(call):
     bot.delete_message(call.message.chat.id, call.message.message_id)
     bot.send_message(
         call.message.chat.id,
-        "?? Главное меню:",
+        "?? Р“Р»Р°РІРЅРѕРµ РјРµРЅСЋ:",
         reply_markup=main_menu(call.from_user.id)
     )
     bot.answer_callback_query(call.id)
@@ -1165,38 +1165,38 @@ def back_to_main(call):
 def ignore(call):
     bot.answer_callback_query(call.id)
 
-# ========== АДМИН ПАНЕЛЬ ==========
-@bot.message_handler(func=lambda message: message.text == "?? Админ")
+# ========== РђР”РњРРќ РџРђРќР•Р›Р¬ ==========
+@bot.message_handler(func=lambda message: message.text == "?? РђРґРјРёРЅ")
 def admin_panel(message):
     if message.from_user.id not in ADMIN_IDS:
-        bot.send_message(message.chat.id, "? У вас нет прав администратора")
+        bot.send_message(message.chat.id, "? РЈ РІР°СЃ РЅРµС‚ РїСЂР°РІ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР°")
         return
     
     bot.send_message(
         message.chat.id,
-        "?? <b>Панель администратора</b>\n\n"
-        "Выберите действие:",
+        "?? <b>РџР°РЅРµР»СЊ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР°</b>\n\n"
+        "Р’С‹Р±РµСЂРёС‚Рµ РґРµР№СЃС‚РІРёРµ:",
         reply_markup=admin_keyboard(),
         parse_mode="HTML"
     )
 
-# ... остальные админ обработчики (они такие же как в вашем исходном файле) ...
+# ... РѕСЃС‚Р°Р»СЊРЅС‹Рµ Р°РґРјРёРЅ РѕР±СЂР°Р±РѕС‚С‡РёРєРё (РѕРЅРё С‚Р°РєРёРµ Р¶Рµ РєР°Рє РІ РІР°С€РµРј РёСЃС…РѕРґРЅРѕРј С„Р°Р№Р»Рµ) ...
 
-# ========== ЗАПУСК ==========
+# ========== Р—РђРџРЈРЎРљ ==========
 if __name__ == "__main__": 
     print("=" * 50)
-    print("?? МАНИКЮРНЫЙ БОТ ЗАПУСК")
+    print("?? РњРђРќРРљР®Р РќР«Р™ Р‘РћРў Р—РђРџРЈРЎРљ")
     print("=" * 50)
     
     while True:
         try:
-            print("? Бот работает! Нажми Ctrl+C для остановки")
+            print("? Р‘РѕС‚ СЂР°Р±РѕС‚Р°РµС‚! РќР°Р¶РјРё Ctrl+C РґР»СЏ РѕСЃС‚Р°РЅРѕРІРєРё")
             bot.infinity_polling(timeout=60)
         except KeyboardInterrupt:
-            print("\n?? Бот остановлен")
+            print("\n?? Р‘РѕС‚ РѕСЃС‚Р°РЅРѕРІР»РµРЅ")
             break
         except Exception as e:
-            print(f"? Ошибка: {e}")
-            print("?? Перезапуск через 5 секунд...")
+            print(f"? РћС€РёР±РєР°: {e}")
+            print("?? РџРµСЂРµР·Р°РїСѓСЃРє С‡РµСЂРµР· 5 СЃРµРєСѓРЅРґ...")
             time.sleep(5)
             continue
